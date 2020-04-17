@@ -11,9 +11,38 @@ export const typeDef = gql`
     tags: [Tag]
     openning_hours: OpeningHours
   }
+  type Name {
+    en: String
+    fi: String
+    sv: String
+  }
+
+  type Location {
+    lat: String
+    lon: String
+    address: Address
+  }
+  type Address {
+    street_address: String
+    postal_code: String
+    locality: String
+  }
+  type Description {
+    intro: String
+    body: String
+    images: [Image]
+  }
+  type Image {
+    url: String
+    copyright_holder: String
+  }
+  type Tag {
+    id: String
+    name: String
+  }
   type OpeningHours {
     hours: OpeningHour
-    openninghours_exeption: string
+    openninghours_exeption: String
   }
   type OpeningHour {
     weekday_id: Int
@@ -25,5 +54,9 @@ export const typeDef = gql`
     hours: Int
     minutes: Int
     second: Int
+  }
+  directive @rest(url: String) on FIELD_DEFINITION
+  extend type Query {
+    places: [Place] @rest(url: "/v1/places/")
   }
 `;
