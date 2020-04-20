@@ -1,12 +1,10 @@
-import * as express from "express";
-import * as bodyParser from "body-parser";
-
+import express from "express";
+import bodyParser from "body-parser";
+import { ApolloServer } from "./server";
 const app = express();
 app.use(bodyParser.json());
 
-const apollo = require("./config/apollo");
-
-apollo({ app });
+ApolloServer.applyMiddleware({ app });
 
 const PORT = process.env.PORT || 4000;
 
